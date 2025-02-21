@@ -8,8 +8,16 @@ document.addEventListener("DOMContentLoaded", () => {
   let moves = 0;
   let emptyTileIndex;
 
-  input.style.display = "block";
-  input.style.margin = "10px auto";
+  // Remove the start button if it exists
+  const startBtn = document.getElementById("start-btn");
+  if (startBtn) {
+    startBtn.style.display = "none";
+  }
+
+  // Position the file input next to the difficulty dropdown
+  input.style.display = "inline-block";
+  difficultySelect.insertAdjacentElement("afterend", input);
+  input.style.marginLeft = "10px";
 
   input.addEventListener("change", function () {
     const file = input.files[0];
@@ -17,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const reader = new FileReader();
       reader.onload = function () {
         createGrid(reader.result);
-        photoMetadata.textContent = "Photo loaded successfully.";
+        photoMetadata.textContent = "Photo loaded successfully: " + file.name;
       };
       reader.onerror = function () {
         alert("Error reading file.");
