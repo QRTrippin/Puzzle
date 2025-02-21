@@ -4,9 +4,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const gameContainer = document.getElementById("game-container");
   const moveCounter = document.getElementById("move-counter");
   const photoMetadata = document.getElementById("photo-metadata");
+  const difficultySelect = document.getElementById("difficulty");
   let gridSize = 3;
   let moves = 0;
   let emptyTileIndex;
+
+  startBtn.addEventListener("click", () => {
+    moves = 0;
+    moveCounter.textContent = "Moves: 0";
+    gridSize = parseInt(difficultySelect.value, 10);
+    input.click(); // Trigger file selection
+  });
 
   input.addEventListener("change", function () {
     const file = input.files[0];
@@ -21,13 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
       };
       reader.readAsDataURL(file);
     }
-  });
-
-  startBtn.addEventListener("click", () => {
-    moves = 0;
-    moveCounter.textContent = "Moves: 0";
-    gridSize = parseInt(document.getElementById("difficulty").value, 10);
-    input.click(); // Trigger file selection
   });
 
   function createGrid(imageURL) {
