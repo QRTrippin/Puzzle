@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     moves = 0;
     moveCounter.textContent = "Moves: 0";
     gridSize = parseInt(difficultySelect.value, 10);
-    input.click(); // Trigger file selection
+    input.dispatchEvent(new MouseEvent("click", { bubbles: true })); // Ensure Safari properly registers the click event
   });
 
   input.addEventListener("change", function () {
