@@ -8,19 +8,16 @@ document.addEventListener("DOMContentLoaded", () => {
   let moves = 0;
   let emptyTileIndex;
 
-  // Remove the start button if it exists
-  const startBtn = document.getElementById("start-btn");
-  if (startBtn) {
-    startBtn.remove();
-  }
+  // Ensure the start button is removed on all browsers
+  document.querySelectorAll("#start-btn").forEach(btn => btn.remove());
 
-  // Position the file input next to the difficulty dropdown
+  // Properly position the file input next to the difficulty dropdown for all browsers
   input.style.display = "inline-block";
   input.style.marginLeft = "10px";
   const fileLabel = document.createElement("span");
   fileLabel.id = "file-label";
   fileLabel.style.marginLeft = "10px";
-  difficultySelect.insertAdjacentElement("afterend", input);
+  difficultySelect.parentNode.insertBefore(input, difficultySelect.nextSibling);
   input.insertAdjacentElement("afterend", fileLabel);
 
   input.addEventListener("change", function () {
