@@ -31,6 +31,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  difficultySelect.addEventListener("change", () => {
+    gridSize = parseInt(difficultySelect.value, 10);
+    if (gameContainer.innerHTML !== "") {
+      alert("Difficulty changed. Please reload an image to apply changes.");
+    }
+  });
+
   function createGrid(imageURL) {
     gameContainer.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
     gameContainer.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
