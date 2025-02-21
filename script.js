@@ -136,13 +136,18 @@ function selectImage(callback) {
 
     // Attach the change event listener
     input.addEventListener("change", (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = () => callback(reader.result); // Pass the image data to the callback
-        reader.readAsDataURL(file);
-      }
-    });
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => callback(reader.result); // Ensure the image is fully loaded before use
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
 
     // Append to the body (necessary for programmatic triggering)
     document.body.appendChild(input);
