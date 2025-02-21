@@ -160,24 +160,40 @@ function selectImage(callback) {
   input.click();
 }
 document.addEventListener("DOMContentLoaded", () => {
-  const savedImage = localStorage.getItem("puzzleImage");
-  if (savedImage) {
-    createGrid(savedImage);
-    document.getElementById("photo-metadata").textContent = "Restored last photo.";
-  }
-});
-  
-    // Start the game
-  startBtn.addEventListener("click", () => {
-    moves = 0;
-    moveCounter.textContent = "Moves: 0";
+  const input = document.getElementById("image-selector");
+  const startBtn = document.getElementById("start-btn");
 
-    const difficulty = document.getElementById("difficulty").value;
-    gridSize = parseInt(difficulty, 10);
+  input.addEventListener("change", (e) => {
+    alert("File input changed.");
+    const file = e.target.files[0];
 
-    selectImage((imageURL) => {
-      createGrid(imageURL);
-      photoMetadata.textContent = "Photo loaded successfully.";
-    });
+    if (file) {
+      alert("File selected: " + file.name);
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        alert("File read successfully.");
+        const img = new Image();
+        img.onload = () => {
+          alert("Image loaded successfully.");
+          document.body.appendChild(img); // Display the image
+        };
+        img.onerror = () => alert("Image failed to load.");
+        img.src = reader.result;
+      };
+
+      reader.readAsDataURL(file);
+    } else {
+      alert("No file selected.");
+    }
   });
+
+  startBtn.addEventListener("click", () => {
+    alert("Start button clicked.");
+    input.click(); // Manually trigger file selection
+  });
+});
+
+  
+
 });
