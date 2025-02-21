@@ -126,37 +126,37 @@ document.addEventListener("DOMContentLoaded", () => {
 function selectImage(callback) {
   let input = document.getElementById("image-selector");
 
-  // If the file input doesn't exist, create it
   if (!input) {
     input = document.createElement("input");
     input.id = "image-selector";
     input.type = "file";
     input.accept = "image/*";
-    input.style.display = "none"; // Hide the file input
+    input.style.display = "none";
 
-    // Attach the change event listener
     input.addEventListener("change", (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const img = new Image();
-      img.onload = () => callback(reader.result); // Ensure the image is fully loaded before use
-      img.src = reader.result;
-    };
-    reader.readAsDataURL(file);
-  }
-});
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          localStorage.setItem("puzzleImage", reader.result);
+          callback(reader.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
 
-
-    // Append to the body (necessary for programmatic triggering)
     document.body.appendChild(input);
   }
-
-  // Trigger the file input click
   input.click();
 }
-
+document.addEventListener("DOMContentLoaded", () => {
+  const savedImage = localStorage.getItem("puzzleImage");
+  if (savedImage) {
+    createGrid(savedImage);
+    document.getElementById("photo-metadata").textContent = "Restored last photo.";
+  }
+});
+  
     // Start the game
   startBtn.addEventListener("click", () => {
     moves = 0;
