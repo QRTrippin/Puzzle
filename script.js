@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("image-selector");
-  const startBtn = document.getElementById("start-btn");
   const gameContainer = document.getElementById("game-container");
   const moveCounter = document.getElementById("move-counter");
   const photoMetadata = document.getElementById("photo-metadata");
@@ -9,12 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let moves = 0;
   let emptyTileIndex;
 
-  startBtn.addEventListener("click", () => {
-    moves = 0;
-    moveCounter.textContent = "Moves: 0";
-    gridSize = parseInt(difficultySelect.value, 10);
-    input.dispatchEvent(new MouseEvent("click", { bubbles: true })); // Ensure Safari properly registers the click event
-  });
+  input.style.display = "block";
+  input.style.margin = "10px auto";
 
   input.addEventListener("change", function () {
     const file = input.files[0];
@@ -122,3 +117,4 @@ document.addEventListener("DOMContentLoaded", () => {
     return true;
   }
 });
+
