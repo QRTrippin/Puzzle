@@ -134,16 +134,26 @@ function selectImage(callback) {
     input.style.display = "none";
 
     input.addEventListener("change", (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          localStorage.setItem("puzzleImage", reader.result);
-          callback(reader.result);
-        };
-        reader.readAsDataURL(file);
-      }
-    });
+  const file = e.target.files[0];
+  if (file) {
+    alert("File selected: " + file.name);
+    const reader = new FileReader();
+    reader.onload = () => {
+      alert("File read successfully.");
+      const img = new Image();
+      img.onload = () => {
+        alert("Image loaded successfully.");
+        callback(reader.result);
+      };
+      img.onerror = () => alert("Image failed to load.");
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  } else {
+    alert("No file selected.");
+  }
+});
+
 
     document.body.appendChild(input);
   }
